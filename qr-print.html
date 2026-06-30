@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Atiri Menu QR Code</title>
+    <style>
+      :root {
+        --ink: #171713;
+        --cream: #f7efe2;
+        --paper: #fffaf1;
+        --rust: #a65335;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        color: var(--ink);
+        background: var(--cream);
+        font-family: Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .qr-card {
+        width: min(100%, 520px);
+        display: grid;
+        gap: 22px;
+        justify-items: center;
+        padding: 36px;
+        border: 1px solid rgba(23, 23, 19, 0.18);
+        background: var(--paper);
+        text-align: center;
+      }
+
+      .brand {
+        display: grid;
+        line-height: 1;
+      }
+
+      .brand span {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 3.2rem;
+        font-weight: 700;
+      }
+
+      .brand small {
+        margin-top: -4px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.35rem;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.4rem;
+        line-height: 1.25;
+      }
+
+      img {
+        width: min(100%, 360px);
+        height: auto;
+        border: 10px solid var(--paper);
+      }
+
+      p {
+        margin: 0;
+        color: var(--rust);
+        font-size: 0.86rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      a {
+        color: inherit;
+        overflow-wrap: anywhere;
+        text-decoration: none;
+      }
+
+      @media print {
+        body {
+          min-height: auto;
+          padding: 0;
+          background: white;
+        }
+
+        .qr-card {
+          width: 100%;
+          min-height: 100vh;
+          border: 0;
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="qr-card">
+      <div class="brand">
+        <span>ATIRI</span>
+        <small>cafe & eatery</small>
+      </div>
+      <h1>Scan for food & drinks menu</h1>
+      <img src="public/assets/atiri-menu-qr.png" alt="QR code for Atiri Cafe & Eatery menu">
+      <p>Koh Phangan</p>
+      <a href="https://kyawhmawe1255.github.io/atiri-cafe-demo/#menu">
+        kyawhmawe1255.github.io/atiri-cafe-demo
+      </a>
+    </main>
+  </body>
+</html>
