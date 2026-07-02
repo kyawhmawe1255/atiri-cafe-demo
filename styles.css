@@ -117,8 +117,8 @@ nav a {
 .header-cta {
   justify-self: end;
   padding: 0 18px;
-  color: var(--ink);
-  background: white;
+  color: white;
+  background: #25d366;
 }
 
 .hero {
