@@ -1,34 +1,42 @@
 const tabs = document.querySelectorAll(".tab");
 const groups = document.querySelectorAll(".menu-group");
 const rows = document.querySelectorAll(".menu-row");
-
 const menuImages = {
-  "Rakhine Moke Ti": "tom-yum.png",
-  "Moke Hin Kha": "tom-yum.png",
-  "Ohn No Khauk Swe": "ohn-no-khaukswe.png",
-  "Wat Tar Dot Htole": "burmese-curry.png",
-  "Tabawa Hincho": "buddha-bowl.png",
+  "Acai Bowl": "acai-bowl.png",
+  "Smoothie Bowl": "smoothie-bowl.png",
+  "Frozen Yoghurt Bowl": "frozen-yoghurt-bowl.png",
+  "Cacao Bowl": "cacao-bowl.png",
+  "Chai Matcha Brioche Sticks": "chai-matcha-brioche-sticks.png",
+  "Coco Brioche Sticks": "coco-brioche-sticks.png",
+  "Lavender Ricotta Brioche Sticks": "lavender-ricotta-brioche-sticks.png",
+  "Avocado Tofu Croffle": "avocado-tofu-croffle.png",
+  "Avocado Salmon Croffle": "avocado-salmon-croffle.png",
+  "Dubai Chocolate Croffle": "dubai-chocolate-croffle.png",
+  "Egg Benedict": "eggs-benedict.png",
+  "Shakshuka": "shakshuka.png",
+  "Cilbir": "cilbir.png",
+  "Crepe": "crepe.png",
+  "Spring Rolls": "spring-rolls.png",
+  "Chicken Wings": "chicken-wings.png",
+  "Truffle Fries": "truffle-fries.png",
+  "Pork Meatball": "pork-meatball.png",
   "Lahphet Thoke": "lahphet-thoke.png",
-  "Shouk Ti Thoke": "centella-thoke.png",
-  "Myin Kwar Ywet Thoke": "centella-thoke.png",
-  "Pal Pyar Thoke": "buddha-bowl.png",
-  "Ahsone Thoke": "nan-gyi-thoke.png",
+  "Centella Thoke": "centella-thoke.png",
   "Nan Gyi Thoke": "nan-gyi-thoke.png",
-  "Thamin Kyaw": "fried-rice.png",
-  "Khauk Swe Kyaw": "stir-fried-noodle.png",
-  "Lahphet Thamin": "fried-rice.png",
-  "Si Chat Khauk Swe": "stir-fried-noodle.png",
-  "Mala Shan Gaw": "stir-fried-noodle.png",
-  "Clay Pot Curry": "burmese-curry.png",
-  "Curry & Rice": "coconut-rice-plate.png",
-  "Set 1 · Bagan Vegan": "buddha-bowl.png",
-  "Set 2 · Inle Vegetarian": "lahphet-thoke.png",
-  "Set 3 · Mandalay Chicken": "ohn-no-khaukswe.png",
-  "Set 4 · Shan Pork": "burmese-curry.png",
-  "Set 5 · Rakhine Seafood": "tom-yum.png",
-  "Tiramisu": "atirimisu.png",
-  "Syrok": "syrok.png",
-  "Coco-Ice Cream Cup": "atirimisu.png"
+  "Coconut Rice Plate": "coconut-rice-plate.png",
+  "Buddha Bowl": "buddha-bowl.png",
+  "Poke Bowl": "poke-bowl.png",
+  "Truffle Smash Burger": "truffle-smash-burger.png",
+  "Burmese Curry": "burmese-curry.png",
+  "Thai Panang Curry": "panang-curry.png",
+  "Thai Green Curry": "thai-green-curry.png",
+  "Ohn No Khauk Swe": "ohn-no-khaukswe.png",
+  "Tom Yum": "tom-yum.png",
+  "Stir Fried Noodle": "stir-fried-noodle.png",
+  "Fried Rice": "fried-rice.png",
+  "Fried Fish": "fried-fish.png",
+  "Brownie": "brownie.png",
+  "Syrok": "syrok.png"
 };
 
 const menuDialog = document.createElement("div");
@@ -47,7 +55,6 @@ menuDialog.innerHTML = `
         <span></span>
       </div>
       <p class="menu-dialog-description"></p>
-      <div class="dialog-proteins" aria-label="Menu notes"></div>
     </div>
   </div>
 `;
@@ -58,22 +65,7 @@ const dialogPanel = menuDialog.querySelector(".menu-dialog-panel");
 const dialogTitle = menuDialog.querySelector(".menu-dialog-title h3");
 const dialogPrice = menuDialog.querySelector(".menu-dialog-title span");
 const dialogDescription = menuDialog.querySelector(".menu-dialog-description");
-const dialogTags = menuDialog.querySelector(".dialog-proteins");
 const dialogClose = menuDialog.querySelector(".menu-dialog-close");
-
-function getTags(row) {
-  return (row.dataset.tags || "")
-    .split(",")
-    .map((tag) => tag.trim())
-    .filter(Boolean);
-}
-
-function formatPrice(price) {
-  if (!price) return "";
-  if (price.toLowerCase().includes("ask")) return price;
-  if (price.toLowerCase().includes("from")) return `${price}B`;
-  return `${price}B`;
-}
 
 function closeMenuDialog() {
   menuDialog.classList.remove("is-open");
@@ -84,15 +76,12 @@ function closeMenuDialog() {
 function openMenuDialog(row) {
   const title = row.querySelector("strong")?.textContent.trim() || "";
   const price = row.querySelector(":scope > span")?.textContent.trim() || "";
-  const description = row.querySelector("p")?.textContent.trim() || "Ask our family for today's preparation.";
+  const description = row.querySelector("p")?.textContent.trim() || "Ask us for today's ingredients and preparation.";
   const image = row.querySelector("img")?.src;
-  const tags = getTags(row);
 
   dialogTitle.textContent = title;
-  dialogPrice.textContent = formatPrice(price);
+  dialogPrice.textContent = price ? `${price} THB` : "";
   dialogDescription.textContent = description;
-  dialogTags.innerHTML = tags.map((tag) => `<span>${tag}</span>`).join("");
-  dialogTags.hidden = tags.length === 0;
 
   if (image) {
     dialogImage.src = image;
@@ -115,24 +104,16 @@ function openMenuDialog(row) {
 rows.forEach((row) => {
   const title = row.querySelector("strong")?.textContent.trim();
   const image = menuImages[title];
-  const tags = getTags(row);
 
-  if (image && !row.classList.contains("no-thumb")) {
-    const thumb = document.createElement("img");
-    thumb.className = "menu-thumb";
-    thumb.src = `public/assets/atiri-food/${image}`;
-    thumb.alt = title;
-    thumb.loading = "lazy";
-    row.prepend(thumb);
-    row.classList.add("has-image");
-  }
+  if (!image) return;
 
-  if (tags.length) {
-    const tagList = document.createElement("div");
-    tagList.className = "row-proteins";
-    tagList.innerHTML = tags.map((tag) => `<span>${tag}</span>`).join("");
-    row.querySelector("div")?.append(tagList);
-  }
+  const thumb = document.createElement("img");
+  thumb.className = "menu-thumb";
+  thumb.src = `public/assets/atiri-food/${image}`;
+  thumb.alt = title;
+  thumb.loading = "lazy";
+  row.prepend(thumb);
+  row.classList.add("has-image");
 });
 
 rows.forEach((row) => {

@@ -1,6 +1,6 @@
-# Thanaka Restaurant Website Demo
+# Atiri Cafe & Eatery Website Demo
 
-Static menu website demo for Thanaka Restaurant.
+Temporary static website demo for Atiri Cafe & Eatery in Koh Phangan.
 
 ## Preview Locally
 
